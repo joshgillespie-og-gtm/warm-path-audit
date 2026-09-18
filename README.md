@@ -1,10 +1,16 @@
 # Warm Path Audit
 
-> **Release status:** v0.1.0 is assembled as a private local release candidate. It has not been published, tagged, or released. See [release notes](RELEASE-NOTES.md), the [adversarial audit](AUDIT.md), and the [release checklist](RELEASE-CHECKLIST.md).
+> **Release status:** [v0.1.0](https://github.com/joshgillespie-og-gtm/warm-path-audit/releases/tag/v0.1.0) is published on GitHub. See the [release notes](RELEASE-NOTES.md), [adversarial audit](AUDIT.md), and [release checklist](RELEASE-CHECKLIST.md).
 
 > Find where an authorized professional network overlaps your ICP and target accounts, locally and explainably.
 
 Warm Path Audit is a **local-first GTM network coverage auditor** for RevOps, Sales Ops, founders, and GTM engineers. It turns user-provided connection CSVs and explicit contributor consent into four evidence-backed queues. It is not a scraper, lead database, enrichment service, or outreach bot.
+
+## See it in 40 seconds
+
+[![Warm Path Audit visual walkthrough](docs/assets/walkthrough/warm-path-audit-walkthrough-preview.gif)](docs/assets/walkthrough/warm-path-audit-walkthrough-silent-master.mp4)
+
+[Watch the full-resolution silent walkthrough](docs/assets/walkthrough/warm-path-audit-walkthrough-silent-master.mp4) · No scraping · Local-first · Human review and bilateral consent
 
 ```text
 WARM PATH AUDIT
@@ -23,7 +29,7 @@ Blocked: 2  Review-only: 0  Display-invalidated: 0
 Requires Node.js 20+.
 
 ```sh
-git clone <repository-url>
+git clone https://github.com/joshgillespie-og-gtm/warm-path-audit.git
 cd warm-path-audit
 npm install
 npm run check
