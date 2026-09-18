@@ -15,7 +15,7 @@ Warm Path Audit v0.1.0 is a local-first reference implementation for auditing wh
 - Includes a credential-free fixture adapter contract and deterministic synthetic demo.
 - Includes no HTTP client, provider SDK, browser automation, child-process execution, outreach path, CRM write path, or shared global graph.
 
-The release audit disposition is **PASS WITH PRODUCTION LIMITATIONS**. The private validation baseline is 13 test files / 91 tests, 14 schemas / 12 JSON examples, 29 Markdown files / 74 local links / 3 Mermaid blocks, and 117 repository files / 25 source files in the security and network/process scan. The demo yields A:1, B:1, C:1, D:1 and two blocked near-misses.
+The release audit disposition is **PASS WITH PRODUCTION LIMITATIONS**. The final publication baseline is 13 test files / 91 tests, 14 schemas / 12 JSON examples, 33 Markdown files / 83 local links / 3 Mermaid blocks, and 123 repository files / 25 source files in the security and network/process scan. The demo yields A:1, B:1, C:1, D:1 and two blocked near-misses.
 
 ## Production gaps and non-claims
 
