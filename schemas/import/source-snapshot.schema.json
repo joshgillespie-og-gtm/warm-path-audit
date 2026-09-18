@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/warm-path-audit/schemas/import/source-snapshot.schema.json",
+  "title": "Immutable source snapshot manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "workspace_id",
+    "source_snapshot_id",
+    "source_kind",
+    "contributor_id",
+    "consent_record_id",
+    "mapping_id",
+    "mapping_version",
+    "raw_sha256",
+    "source_observed_at",
+    "imported_at",
+    "byte_count",
+    "record_count",
+    "raw_retention",
+    "network_accessed",
+    "status"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "workspace_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "source_snapshot_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "source_kind": {
+      "enum": [
+        "linkedin_connections_export",
+        "generic_contacts_csv",
+        "crm_csv",
+        "email_metadata_csv",
+        "calendar_metadata_csv",
+        "human_attestation"
+      ]
+    },
+    "contributor_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "consent_record_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "adapter_authorization_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "mapping_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "mapping_version": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "raw_sha256": { "$ref": "../common.schema.json#/$defs/sha256" },
+    "source_observed_at": { "$ref": "../common.schema.json#/$defs/dateTime" },
+    "imported_at": { "$ref": "../common.schema.json#/$defs/dateTime" },
+    "byte_count": { "type": "integer", "minimum": 0, "maximum": 104857600 },
+    "record_count": { "type": "integer", "minimum": 0, "maximum": 100000 },
+    "raw_retention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "deleted_at"],
+      "properties": {
+        "mode": { "const": "delete_after_normalization" },
+        "deleted_at": { "$ref": "../common.schema.json#/$defs/dateTime" }
+      }
+    },
+    "network_accessed": { "const": false },
+    "status": { "enum": ["normalized", "rejected", "withdrawn", "deleted"] },
+    "idempotency_key": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "transform_version": { "type": "string", "minLength": 1, "maxLength": 64 }
+  }
+}

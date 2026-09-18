@@ -1,0 +1,31 @@
+{
+  "schema_version": "0.1.0",
+  "workspace_id": "workspace_ember",
+  "policy_id": "policy_ember_safe",
+  "policy_version": "1",
+  "purpose": "Audit knowingly contributed fictional team networks for B2B target-account coverage.",
+  "effective_at": "2026-09-18T00:00:00Z",
+  "retention_days": {
+    "raw_source": 0,
+    "normalized_claims": 365,
+    "derived_results": 365,
+    "audit_receipts": 730,
+    "sanitized_exports": 30
+  },
+  "employment_freshness_days": { "current_max": 365, "review_max": 730 },
+  "identity_resolution": {
+    "ambiguous_auto_merge": false,
+    "name_company_auto_merge": false,
+    "shared_email_auto_merge": false,
+    "confusable_auto_merge": false
+  },
+  "exports": {
+    "formula_neutralization": "prefix_apostrophe_after_leading_unicode_whitespace_or_controls",
+    "bulk_edge_list": false,
+    "broker_identity_default": "redacted",
+    "raw_source_fields": false
+  },
+  "external_mutations": false,
+  "network_mode": "disabled",
+  "sensitive_targeting": "prohibited"
+}

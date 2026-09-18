@@ -1,0 +1,18 @@
+{
+  "schema_version": "0.1.0",
+  "workspace_id": "workspace_ember",
+  "consent_record_id": "consent_casey_001",
+  "contributor_id": "contributor_casey",
+  "authorization_basis": "individual_consent",
+  "purpose_id": "purpose_b2b_coverage",
+  "notice_version": "1",
+  "source_classes": ["connections_csv"],
+  "allowed_categories": ["A", "B", "C", "D"],
+  "broker_disclosure": "redacted_in_exports",
+  "sanitized_export_allowed": true,
+  "granted_at": "2026-09-18T00:00:00Z",
+  "expires_at": "2027-09-18T00:00:00Z",
+  "status": "active",
+  "retention_policy_id": "policy_ember_safe",
+  "grant_method": "local_cli_confirmation"
+}

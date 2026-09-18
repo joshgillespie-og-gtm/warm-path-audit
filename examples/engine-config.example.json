@@ -1,0 +1,125 @@
+{
+  "workspaceId": "workspace_ember",
+  "configId": "config_ember_match",
+  "version": "1",
+  "directContributorIds": ["contributor_owner"],
+  "icpRuleSet": {
+    "ruleSetId": "rules_icp_fictional",
+    "version": "1",
+    "mode": "all",
+    "rules": [
+      {
+        "ruleId": "rule_industry_software",
+        "field": "industry",
+        "operator": "in",
+        "value": ["software"],
+        "required": true,
+        "weight": 100
+      }
+    ]
+  },
+  "stakeholderPersonaRuleSet": {
+    "ruleSetId": "rules_persona_fictional",
+    "version": "1",
+    "mode": "all",
+    "rules": [
+      {
+        "ruleId": "rule_function_sales",
+        "field": "function",
+        "operator": "in",
+        "value": ["sales"],
+        "required": true,
+        "weight": 50
+      },
+      {
+        "ruleId": "rule_seniority_vp",
+        "field": "seniority",
+        "operator": "in",
+        "value": ["vp"],
+        "required": true,
+        "weight": 50
+      }
+    ]
+  },
+  "coachCandidateRuleSet": {
+    "ruleSetId": "rules_coach_fictional",
+    "version": "1",
+    "mode": "any",
+    "rules": [
+      {
+        "ruleId": "rule_function_exists",
+        "field": "function",
+        "operator": "exists",
+        "value": true,
+        "required": true,
+        "weight": 100
+      }
+    ]
+  },
+  "targetAccounts": [
+    {
+      "targetAccountId": "target_northstar",
+      "organizationId": "org_northstar",
+      "priority": 1,
+      "attributes": {
+        "industry": "software",
+        "domain": "northstar.example.com"
+      }
+    }
+  ],
+  "accountProfiles": [
+    {
+      "organizationId": "org_lantern",
+      "attributes": {
+        "industry": "software",
+        "domain": "lantern.example.com"
+      }
+    }
+  ],
+  "approvedOrganizationAliases": [
+    {
+      "aliasId": "alias_northstar",
+      "organizationId": "org_northstar",
+      "sourceOrganizationId": "org_northstar_export",
+      "kind": "domain",
+      "value": "northstar.example.com",
+      "approvedReviewDecisionId": "review_alias_northstar",
+      "organizationAliasCandidateId": "alias_candidate_northstar"
+    }
+  ],
+  "scoring": {
+    "weights": {
+      "accountFit": 25,
+      "personaFit": 20,
+      "relationshipConfidence": 20,
+      "employmentConfidence": 15,
+      "pathConfidence": 10,
+      "freshness": 10
+    },
+    "personaMatchedThreshold": 100,
+    "uncertainLowerBound": 50
+  },
+  "freshness": {
+    "currentEmploymentMaxDays": 365,
+    "reviewEmploymentMaxDays": 730,
+    "relationshipMaxDays": 365
+  },
+  "suppressions": [
+    {
+      "suppressionId": "suppress_customer",
+      "kind": "crm_state",
+      "value": "customer",
+      "reasonCode": "EXISTING_CUSTOMER",
+      "effectiveAt": "2026-09-18T00:00:00Z"
+    }
+  ],
+  "exclusions": [],
+  "reviewPolicy": {
+    "uncertainPersona": "review_only_candidate",
+    "staleEmployment": "review_only",
+    "unresolvedIdentity": "block",
+    "unresolvedOrganization": "block",
+    "bAndDRequireReview": true,
+    "reviewReasonCode": "HUMAN_REVIEW_REQUIRED"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "workspaceId": "workspace_ember",
+  "policyId": "policy_ember_match",
+  "version": "1",
+  "effectiveAt": "2026-09-18T00:00:00Z",
+  "purposeId": "purpose_audit",
+  "allowedCategories": ["A", "B", "C", "D"],
+  "directScope": "A_ICP_FIT_INCLUDING_TARGETS_B_TARGET_LIST_ONLY",
+  "brokerScope": "C_D_TARGET_LIST_ONLY",
+  "requireBrokerIndividualConsent": true,
+  "networkMode": "disabled",
+  "externalMutations": false
+}

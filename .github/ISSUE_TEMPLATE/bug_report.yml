@@ -1,0 +1,52 @@
+name: Bug report
+description: Report a reproducible defect using synthetic data only
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include real contacts, exports, relationship data, target lists, credentials, databases, or reports. Security vulnerabilities belong in private reporting under SECURITY.md.
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      placeholder: v0.x.x or commit SHA
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Node.js and operating system
+      placeholder: Node 20.x, macOS/Linux/Windows
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Synthetic reproduction
+      description: Use fictional people and reserved example domains.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual sanitized behavior
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Safety checks
+      options:
+        - label: This report contains no private or real-person data.
+          required: true
+        - label: This is not a security vulnerability requiring private disclosure.
+          required: true

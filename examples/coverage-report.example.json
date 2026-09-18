@@ -1,0 +1,363 @@
+{
+  "schema_version": "0.1.0",
+  "workspace_id": "workspace_ember",
+  "audit_run_id": "audit_run_fictional_001",
+  "engine_version": "0.1.0",
+  "config_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+  "policy_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+  "input_set_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "results": [
+    {
+      "schema_version": "0.1.0",
+      "workspace_id": "workspace_ember",
+      "audit_run_id": "audit_run_fictional_001",
+      "result_id": "result_a_001",
+      "category": "A",
+      "destination_person_id": "person_alex",
+      "canonical_account_id": "account_lantern",
+      "persona_outcome": "matched",
+      "candidate_label": "potential_direct_icp_lead",
+      "scores": {
+        "account_fit": 100,
+        "persona_fit": 90,
+        "relationship_confidence": 95,
+        "employment_confidence": 90,
+        "path_confidence": 90,
+        "freshness": 95,
+        "review_priority": 91
+      },
+      "reason_codes": ["CATEGORY_A_ELIGIBLE", "HUMAN_REVIEW_REQUIRED"],
+      "evidence": [
+        {
+          "source_snapshot_id": "snapshot_fictional_001",
+          "source_record_id": "record_1_relationship",
+          "claim_type": "relationship",
+          "provenance": "authorized synthetic contributor export",
+          "observed_at": "2026-09-17T00:00:00Z",
+          "confidence": 0.95,
+          "freshness_status": "current",
+          "row_digest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        },
+        {
+          "source_snapshot_id": "snapshot_fictional_001",
+          "source_record_id": "record_1_employment",
+          "claim_type": "employment",
+          "provenance": "authorized synthetic contributor export",
+          "observed_at": "2026-09-17T00:00:00Z",
+          "confidence": 0.9,
+          "freshness_status": "current",
+          "row_digest_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        }
+      ],
+      "identity_resolution": {
+        "confidence": 0.98,
+        "status": "resolved_exact",
+        "unresolved_conflict_ids": []
+      },
+      "policy": {
+        "eligible": true,
+        "consent_status": "active",
+        "suppression_status": "clear",
+        "disclosure": "authorized_reviewers",
+        "reason_codes": ["POLICY_ELIGIBLE"]
+      },
+      "rule_evaluations": [
+        {
+          "rule_set_id": "rules_persona_fictional",
+          "rule_set_version": "1",
+          "matched_rule_ids": ["rule_function_revenue"],
+          "failed_rule_ids": []
+        }
+      ],
+      "review": {
+        "status": "unreviewed",
+        "history": []
+      },
+      "engine_version": "0.1.0",
+      "input_set_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "sanitization": {
+        "profile": "safe-export-v1",
+        "formula_cells_neutralized": 0,
+        "broker_identity_redacted": false,
+        "raw_source_fields_omitted": true
+      },
+      "dependencies": {
+        "contributor_ids": ["contributor_casey"],
+        "consent_record_ids": ["consent_fictional_001"],
+        "source_snapshot_ids": ["snapshot_fictional_001"],
+        "evidence_ref_ids": ["record_1_relationship", "record_1_employment"],
+        "relationship_edge_ids": [],
+        "mixed_source_rule": "invalidate_entire_result"
+      }
+    },
+    {
+      "schema_version": "0.1.0",
+      "workspace_id": "workspace_ember",
+      "audit_run_id": "audit_run_fictional_001",
+      "result_id": "result_b_001",
+      "category": "B",
+      "destination_person_id": "person_blair",
+      "canonical_account_id": "account_northstar",
+      "persona_outcome": "not_matched",
+      "candidate_label": "target_account_coach_champion_candidate",
+      "scores": {
+        "account_fit": 100,
+        "persona_fit": 25,
+        "relationship_confidence": 95,
+        "employment_confidence": 90,
+        "path_confidence": 90,
+        "freshness": 95,
+        "review_priority": 90
+      },
+      "reason_codes": ["CATEGORY_B_ELIGIBLE", "HUMAN_REVIEW_REQUIRED"],
+      "evidence": [
+        {
+          "source_snapshot_id": "snapshot_fictional_001",
+          "source_record_id": "record_2_relationship",
+          "claim_type": "relationship",
+          "provenance": "authorized synthetic contributor export",
+          "observed_at": "2026-09-17T00:00:00Z",
+          "confidence": 0.95,
+          "freshness_status": "current",
+          "row_digest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        },
+        {
+          "source_snapshot_id": "snapshot_fictional_001",
+          "source_record_id": "record_2_employment",
+          "claim_type": "employment",
+          "provenance": "authorized synthetic contributor export",
+          "observed_at": "2026-09-17T00:00:00Z",
+          "confidence": 0.9,
+          "freshness_status": "current",
+          "row_digest_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        }
+      ],
+      "identity_resolution": {
+        "confidence": 0.98,
+        "status": "resolved_exact",
+        "unresolved_conflict_ids": []
+      },
+      "policy": {
+        "eligible": true,
+        "consent_status": "active",
+        "suppression_status": "clear",
+        "disclosure": "authorized_reviewers",
+        "reason_codes": ["POLICY_ELIGIBLE"]
+      },
+      "rule_evaluations": [
+        {
+          "rule_set_id": "rules_persona_fictional",
+          "rule_set_version": "1",
+          "matched_rule_ids": [],
+          "failed_rule_ids": ["rule_function_revenue"]
+        }
+      ],
+      "review": {
+        "status": "unreviewed",
+        "history": []
+      },
+      "engine_version": "0.1.0",
+      "input_set_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "sanitization": {
+        "profile": "safe-export-v1",
+        "formula_cells_neutralized": 0,
+        "broker_identity_redacted": false,
+        "raw_source_fields_omitted": true
+      },
+      "dependencies": {
+        "contributor_ids": ["contributor_casey"],
+        "consent_record_ids": ["consent_fictional_001"],
+        "source_snapshot_ids": ["snapshot_fictional_001"],
+        "evidence_ref_ids": ["record_2_relationship", "record_2_employment"],
+        "relationship_edge_ids": [],
+        "mixed_source_rule": "invalidate_entire_result"
+      }
+    },
+    {
+      "schema_version": "0.1.0",
+      "workspace_id": "workspace_ember",
+      "audit_run_id": "audit_run_fictional_001",
+      "result_id": "result_c_001",
+      "category": "C",
+      "destination_person_id": "person_cameron",
+      "canonical_account_id": "account_northstar",
+      "persona_outcome": "matched",
+      "candidate_label": "broker_path_to_target_stakeholder",
+      "scores": {
+        "account_fit": 100,
+        "persona_fit": 90,
+        "relationship_confidence": 95,
+        "employment_confidence": 90,
+        "path_confidence": 90,
+        "freshness": 95,
+        "review_priority": 89
+      },
+      "reason_codes": ["CATEGORY_C_ELIGIBLE", "HUMAN_REVIEW_REQUIRED"],
+      "evidence": [
+        {
+          "source_snapshot_id": "snapshot_fictional_001",
+          "source_record_id": "record_3_relationship",
+          "claim_type": "relationship",
+          "provenance": "authorized synthetic contributor export",
+          "observed_at": "2026-09-17T00:00:00Z",
+          "confidence": 0.95,
+          "freshness_status": "current",
+          "row_digest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        },
+        {
+          "source_snapshot_id": "snapshot_fictional_001",
+          "source_record_id": "record_3_employment",
+          "claim_type": "employment",
+          "provenance": "authorized synthetic contributor export",
+          "observed_at": "2026-09-17T00:00:00Z",
+          "confidence": 0.9,
+          "freshness_status": "current",
+          "row_digest_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        }
+      ],
+      "identity_resolution": {
+        "confidence": 0.98,
+        "status": "resolved_exact",
+        "unresolved_conflict_ids": []
+      },
+      "policy": {
+        "eligible": true,
+        "consent_status": "active",
+        "suppression_status": "clear",
+        "disclosure": "authorized_reviewers",
+        "reason_codes": ["POLICY_ELIGIBLE"]
+      },
+      "rule_evaluations": [
+        {
+          "rule_set_id": "rules_persona_fictional",
+          "rule_set_version": "1",
+          "matched_rule_ids": ["rule_function_revenue"],
+          "failed_rule_ids": []
+        }
+      ],
+      "review": {
+        "status": "unreviewed",
+        "history": []
+      },
+      "engine_version": "0.1.0",
+      "input_set_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "sanitization": {
+        "profile": "safe-export-v1",
+        "formula_cells_neutralized": 0,
+        "broker_identity_redacted": false,
+        "raw_source_fields_omitted": true
+      },
+      "broker_contributor_id": "contributor_casey",
+      "relationship_edge_id": "edge_c_001",
+      "dependencies": {
+        "contributor_ids": ["contributor_casey"],
+        "consent_record_ids": ["consent_fictional_001"],
+        "source_snapshot_ids": ["snapshot_fictional_001"],
+        "evidence_ref_ids": ["record_3_relationship", "record_3_employment"],
+        "relationship_edge_ids": ["edge_c_001"],
+        "mixed_source_rule": "invalidate_entire_result"
+      }
+    },
+    {
+      "schema_version": "0.1.0",
+      "workspace_id": "workspace_ember",
+      "audit_run_id": "audit_run_fictional_001",
+      "result_id": "result_d_001",
+      "category": "D",
+      "destination_person_id": "person_devon",
+      "canonical_account_id": "account_northstar",
+      "persona_outcome": "uncertain",
+      "candidate_label": "broker_path_to_target_account_coach_champion_candidate",
+      "scores": {
+        "account_fit": 100,
+        "persona_fit": 25,
+        "relationship_confidence": 95,
+        "employment_confidence": 90,
+        "path_confidence": 90,
+        "freshness": 95,
+        "review_priority": 88
+      },
+      "reason_codes": ["CATEGORY_D_ELIGIBLE", "HUMAN_REVIEW_REQUIRED"],
+      "evidence": [
+        {
+          "source_snapshot_id": "snapshot_fictional_001",
+          "source_record_id": "record_4_relationship",
+          "claim_type": "relationship",
+          "provenance": "authorized synthetic contributor export",
+          "observed_at": "2026-09-17T00:00:00Z",
+          "confidence": 0.95,
+          "freshness_status": "current",
+          "row_digest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        },
+        {
+          "source_snapshot_id": "snapshot_fictional_001",
+          "source_record_id": "record_4_employment",
+          "claim_type": "employment",
+          "provenance": "authorized synthetic contributor export",
+          "observed_at": "2026-09-17T00:00:00Z",
+          "confidence": 0.9,
+          "freshness_status": "current",
+          "row_digest_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        }
+      ],
+      "identity_resolution": {
+        "confidence": 0.98,
+        "status": "resolved_exact",
+        "unresolved_conflict_ids": []
+      },
+      "policy": {
+        "eligible": true,
+        "consent_status": "active",
+        "suppression_status": "clear",
+        "disclosure": "authorized_reviewers",
+        "reason_codes": ["POLICY_ELIGIBLE"]
+      },
+      "rule_evaluations": [
+        {
+          "rule_set_id": "rules_persona_fictional",
+          "rule_set_version": "1",
+          "matched_rule_ids": [],
+          "failed_rule_ids": ["rule_function_revenue"]
+        }
+      ],
+      "review": {
+        "status": "unreviewed",
+        "history": []
+      },
+      "engine_version": "0.1.0",
+      "input_set_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "sanitization": {
+        "profile": "safe-export-v1",
+        "formula_cells_neutralized": 0,
+        "broker_identity_redacted": false,
+        "raw_source_fields_omitted": true
+      },
+      "broker_contributor_id": "contributor_casey",
+      "relationship_edge_id": "edge_d_001",
+      "dependencies": {
+        "contributor_ids": ["contributor_casey"],
+        "consent_record_ids": ["consent_fictional_001"],
+        "source_snapshot_ids": ["snapshot_fictional_001"],
+        "evidence_ref_ids": ["record_4_relationship", "record_4_employment"],
+        "relationship_edge_ids": ["edge_d_001"],
+        "mixed_source_rule": "invalidate_entire_result"
+      }
+    }
+  ],
+  "suppressed": [],
+  "review_only": [],
+  "sort_order": [
+    "category",
+    "review_priority_desc",
+    "target_account_id",
+    "destination_person_id",
+    "broker_contributor_id",
+    "result_id"
+  ],
+  "sanitization": {
+    "profile": "safe-export-v1",
+    "formula_cells_neutralized": 0,
+    "bulk_edge_list_included": false,
+    "raw_source_rows_included": false
+  }
+}

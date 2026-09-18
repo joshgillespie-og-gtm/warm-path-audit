@@ -1,0 +1,84 @@
+{
+  "schema_version": "0.1.0",
+  "workspace_id": "workspace_ember",
+  "audit_config_id": "audit_config_ember_001",
+  "config_version": "1",
+  "policy_id": "policy_ember_safe",
+  "policy_version": "1",
+  "icp_rule_set": {
+    "rule_set_id": "rules_icp_fictional",
+    "version": "1",
+    "rules": [
+      {
+        "rule_id": "rule_industry_software",
+        "field": "industry",
+        "operator": "in",
+        "value": ["Software"]
+      }
+    ]
+  },
+  "persona_rule_set": {
+    "rule_set_id": "rules_persona_fictional",
+    "version": "1",
+    "rules": [
+      {
+        "rule_id": "rule_function_revenue",
+        "field": "function",
+        "operator": "in",
+        "value": ["Revenue", "Sales"]
+      },
+      {
+        "rule_id": "rule_seniority_vp",
+        "field": "seniority",
+        "operator": "in",
+        "value": ["VP", "C-Level"]
+      }
+    ]
+  },
+  "target_accounts": [
+    {
+      "target_account_id": "account_northstar",
+      "canonical_name": "Northstar Example Systems",
+      "canonical_domain": "northstar.example.com",
+      "crm_account_id": "crm_fictional_northstar",
+      "priority": 1,
+      "aliases": [
+        {
+          "value": "Northstar Example",
+          "kind": "name",
+          "review_status": "approved"
+        },
+        {
+          "value": "northstar.example.com",
+          "kind": "domain",
+          "review_status": "approved"
+        }
+      ],
+      "notes": "Obviously fictional target account using a reserved domain."
+    }
+  ],
+  "suppressions": [
+    {
+      "suppression_id": "suppression_customer_state",
+      "kind": "crm_state",
+      "value": "customer",
+      "reason_code": "EXISTING_CUSTOMER"
+    }
+  ],
+  "score_weights": {
+    "account_fit": 25,
+    "persona_fit": 20,
+    "relationship_confidence": 20,
+    "employment_confidence": 15,
+    "path_confidence": 10,
+    "freshness": 10
+  },
+  "sort_order": [
+    "category",
+    "review_priority_desc",
+    "target_account_id",
+    "destination_person_id",
+    "broker_contributor_id",
+    "result_id"
+  ]
+}

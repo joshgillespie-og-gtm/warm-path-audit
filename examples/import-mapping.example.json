@@ -1,0 +1,76 @@
+{
+  "schema_version": "0.1.0",
+  "mapping_id": "mapping_fictional_connections",
+  "mapping_version": "1",
+  "source_kind": "linkedin_connections_export",
+  "encoding": "utf-8",
+  "delimiter": ",",
+  "header": {
+    "mode": "detect_required_headers",
+    "required_source_headers": [
+      "First Name",
+      "Last Name",
+      "URL",
+      "Email Address",
+      "Company",
+      "Position",
+      "Connected On"
+    ],
+    "max_preamble_lines": 100,
+    "collision_normalization": "unicode_nfkc_trim_casefold",
+    "reject_duplicates": true
+  },
+  "columns": [
+    {
+      "source_header": "First Name",
+      "target_field": "first_name",
+      "required": true,
+      "transforms": ["trim", "unicode_nfkc", "control_character_reject"]
+    },
+    {
+      "source_header": "Last Name",
+      "target_field": "last_name",
+      "required": true,
+      "transforms": ["trim", "unicode_nfkc", "control_character_reject"]
+    },
+    {
+      "source_header": "URL",
+      "target_field": "profile_url",
+      "required": false,
+      "transforms": ["trim", "url_syntax_validate"]
+    },
+    {
+      "source_header": "Email Address",
+      "target_field": "email",
+      "required": false,
+      "transforms": ["trim", "email_normalize"]
+    },
+    {
+      "source_header": "Company",
+      "target_field": "company_name",
+      "required": false,
+      "transforms": ["trim", "unicode_nfkc", "control_character_reject"]
+    },
+    {
+      "source_header": "Position",
+      "target_field": "title",
+      "required": false,
+      "transforms": ["trim", "unicode_nfkc", "control_character_reject"]
+    },
+    {
+      "source_header": "Connected On",
+      "target_field": "connected_on",
+      "required": false,
+      "transforms": ["trim", "iso_date_parse"]
+    }
+  ],
+  "limits": {
+    "max_file_bytes": 104857600,
+    "max_data_rows": 100000,
+    "max_row_bytes": 1048576,
+    "max_field_bytes": 262144,
+    "max_columns": 256
+  },
+  "network_behavior": "never_fetch",
+  "unknown_columns": "ignore"
+}

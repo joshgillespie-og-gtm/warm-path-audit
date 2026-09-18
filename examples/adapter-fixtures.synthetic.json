@@ -1,0 +1,19 @@
+[
+  {
+    "workspaceId": "workspace_demo",
+    "adapterAuthorizationId": "auth_fixture_crm",
+    "providerTenantId": "tenant_example",
+    "providerRecordId": "contact_001",
+    "observedAt": "2026-09-17T12:00:00.000Z",
+    "personName": "Alex Example",
+    "personEmail": "alex@example.com",
+    "organizationName": "Northstar Example",
+    "organizationDomain": "northstar.example.com",
+    "kind": "crm",
+    "crmAccountId": "account_001",
+    "crmContactId": "contact_001",
+    "crmOwnerId": "owner_001",
+    "opportunityStage": "qualified",
+    "suppressionState": "clear"
+  }
+]

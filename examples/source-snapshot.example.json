@@ -1,0 +1,23 @@
+{
+  "schema_version": "0.1.0",
+  "workspace_id": "workspace_ember",
+  "source_snapshot_id": "snapshot_fictional_001",
+  "source_kind": "linkedin_connections_export",
+  "contributor_id": "contributor_casey",
+  "consent_record_id": "consent_casey_001",
+  "mapping_id": "mapping_fictional_connections",
+  "mapping_version": "1",
+  "raw_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "source_observed_at": "2026-09-17T00:00:00Z",
+  "imported_at": "2026-09-18T00:00:00Z",
+  "byte_count": 512,
+  "record_count": 4,
+  "raw_retention": {
+    "mode": "delete_after_normalization",
+    "deleted_at": "2026-09-18T00:00:01Z"
+  },
+  "network_accessed": false,
+  "status": "normalized",
+  "idempotency_key": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "transform_version": "1"
+}

@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/warm-path-audit/schemas/policy/adapter-authorization.schema.json",
+  "title": "Optional read-only adapter authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "workspace_id",
+    "adapter_authorization_id",
+    "adapter_id",
+    "provider",
+    "provider_tenant_id",
+    "authorization_basis",
+    "purpose_id",
+    "capabilities",
+    "field_allowlist",
+    "time_window",
+    "retention_days",
+    "authorized_at",
+    "expires_at",
+    "status",
+    "credentials_embedded"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "workspace_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "adapter_authorization_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "adapter_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "provider": { "type": "string", "minLength": 1, "maxLength": 100 },
+    "provider_tenant_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "authorization_basis": {
+      "enum": [
+        "oauth_read_only",
+        "api_key_read_only",
+        "authorized_file_export",
+        "authorized_local_fixture"
+      ]
+    },
+    "purpose_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "read_email_metadata",
+          "read_calendar_metadata",
+          "read_crm_metadata",
+          "read_enrichment_claims"
+        ]
+      }
+    },
+    "field_allowlist": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "participant_id",
+          "participant_address",
+          "event_timestamp",
+          "thread_id",
+          "direction",
+          "interaction_count",
+          "organizer",
+          "start_at",
+          "end_at",
+          "rsvp",
+          "attendance",
+          "crm_account_id",
+          "crm_contact_id",
+          "crm_owner_id",
+          "crm_opportunity_state",
+          "crm_suppression_state",
+          "provider_claim_id",
+          "claim_value",
+          "claim_observed_at"
+        ]
+      }
+    },
+    "time_window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to"],
+      "properties": {
+        "from": { "$ref": "../common.schema.json#/$defs/dateTime" },
+        "to": { "$ref": "../common.schema.json#/$defs/dateTime" }
+      }
+    },
+    "retention_days": { "type": "integer", "minimum": 1, "maximum": 365 },
+    "authorized_at": { "$ref": "../common.schema.json#/$defs/dateTime" },
+    "expires_at": { "$ref": "../common.schema.json#/$defs/dateTime" },
+    "status": { "enum": ["active", "expired", "revoked"] },
+    "revoked_at": { "$ref": "../common.schema.json#/$defs/dateTime" },
+    "credentials_embedded": { "const": false }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "revoked" } } },
+      "then": { "required": ["revoked_at"] }
+    }
+  ]
+}

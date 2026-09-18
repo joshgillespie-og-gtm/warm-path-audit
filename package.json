@@ -1,0 +1,90 @@
+{
+  "name": "warm-path-audit",
+  "version": "0.1.0",
+  "description": "Local-first, deterministic GTM network coverage auditor with consent-aware evidence and safe review outputs",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "dist/index.js",
+  "bin": {
+    "warm-path-audit": "dist/cli/main.js"
+  },
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "schemas",
+    "README.md",
+    "docs",
+    "examples",
+    "LICENSE",
+    "CHANGELOG.md",
+    "RELEASE-NOTES.md",
+    "SECURITY.md",
+    "SUPPORT.md",
+    "GOVERNANCE.md",
+    "NAME-REVIEW.md",
+    "NOTICE",
+    "AUDIT.md",
+    "RELEASE-CHECKLIST.md"
+  ],
+  "scripts": {
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "schemas:check": "node scripts/validate-schemas.mjs",
+    "security:check": "node scripts/security-self-test.mjs",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm test && npm run schemas:check && npm run security:check && npm run docs:check",
+    "clean": "node -e \"import('node:fs').then(({rmSync})=>rmSync('dist',{recursive:true,force:true}))\"",
+    "build": "npm run clean && tsc -p tsconfig.build.json",
+    "cli": "node dist/cli/main.js",
+    "demo": "npm run build --silent && node dist/cli/main.js demo --db /tmp/warm-path-audit-demo/workspace.db --reports /tmp/warm-path-audit-demo/reports --overwrite",
+    "docs:check": "node scripts/check-docs.mjs"
+  },
+  "dependencies": {
+    "better-sqlite3": "11.10.0",
+    "zod": "^4.1.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.35.0",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^22.18.3",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "eslint": "9.35.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.43.0",
+    "vitest": "4.1.11"
+  },
+  "license": "Apache-2.0",
+  "author": "Josh Gillespie",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshgillespie-og-gtm/warm-path-audit.git"
+  },
+  "homepage": "https://github.com/joshgillespie-og-gtm/warm-path-audit#readme",
+  "bugs": {
+    "url": "https://github.com/joshgillespie-og-gtm/warm-path-audit/issues"
+  },
+  "keywords": [
+    "gtm",
+    "network-analysis",
+    "revops",
+    "sales-operations",
+    "sqlite",
+    "privacy",
+    "consent",
+    "typescript"
+  ]
+}

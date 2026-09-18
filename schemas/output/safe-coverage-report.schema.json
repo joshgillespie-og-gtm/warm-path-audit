@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/warm-path-audit/schemas/output/safe-coverage-report.schema.json",
+  "title": "Privacy-safe current-state coverage export",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generated_at",
+    "workspace_id",
+    "audit_run_id",
+    "engine_version",
+    "hashes",
+    "view",
+    "caveat",
+    "category_definitions",
+    "summary",
+    "account_coverage",
+    "findings",
+    "blocked",
+    "review_only",
+    "sanitization"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.2.0" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "workspace_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "audit_run_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "engine_version": { "type": "string" },
+    "hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["input_set_sha256", "config_sha256", "policy_sha256"],
+      "properties": {
+        "input_set_sha256": { "$ref": "../common.schema.json#/$defs/sha256" },
+        "config_sha256": { "$ref": "../common.schema.json#/$defs/sha256" },
+        "policy_sha256": { "$ref": "../common.schema.json#/$defs/sha256" }
+      }
+    },
+    "view": { "enum": ["safe", "reviewer"] },
+    "caveat": {
+      "const": "Results are hypotheses for human review, not permission to contact."
+    },
+    "category_definitions": {
+      "type": "object",
+      "required": ["A", "B", "C", "D"],
+      "additionalProperties": false,
+      "properties": {
+        "A": { "type": "string" },
+        "B": { "type": "string" },
+        "C": { "type": "string" },
+        "D": { "type": "string" }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "eligible_total",
+        "categories",
+        "blocked_total",
+        "review_only_total",
+        "display_invalidated_total"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "eligible_total": { "type": "integer", "minimum": 0 },
+        "categories": {
+          "type": "object",
+          "required": ["A", "B", "C", "D"],
+          "additionalProperties": false,
+          "properties": {
+            "A": { "type": "integer", "minimum": 0 },
+            "B": { "type": "integer", "minimum": 0 },
+            "C": { "type": "integer", "minimum": 0 },
+            "D": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "blocked_total": { "type": "integer", "minimum": 0 },
+        "review_only_total": { "type": "integer", "minimum": 0 },
+        "display_invalidated_total": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "account_coverage": { "type": "array", "items": { "type": "object" } },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "result_id",
+          "category",
+          "candidate_label",
+          "destination",
+          "account",
+          "review_priority",
+          "reason_codes",
+          "evidence",
+          "dependencies"
+        ],
+        "properties": {
+          "result_id": { "$ref": "../common.schema.json#/$defs/id" },
+          "category": { "$ref": "../common.schema.json#/$defs/category" },
+          "candidate_label": { "type": "string" },
+          "destination": { "type": "object" },
+          "account": { "type": "object" },
+          "review_priority": { "type": "number", "minimum": 0, "maximum": 100 },
+          "reason_codes": { "type": "array", "items": { "type": "string" } },
+          "evidence": { "type": "object" },
+          "dependencies": { "type": "object" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "blocked": { "type": "array", "items": { "type": "object" } },
+    "review_only": { "type": "array", "items": { "type": "object" } },
+    "sanitization": {
+      "type": "object",
+      "required": [
+        "broker_identities_redacted",
+        "exact_relationship_edges_redacted",
+        "contributor_emails_included",
+        "raw_rows_included",
+        "private_source_metadata_included",
+        "credentials_included",
+        "portable_edge_list_included",
+        "guessed_relationship_strength_included",
+        "current_display_policy_revalidated"
+      ],
+      "properties": {
+        "broker_identities_redacted": { "type": "boolean" },
+        "exact_relationship_edges_redacted": { "type": "boolean" },
+        "contributor_emails_included": { "const": false },
+        "raw_rows_included": { "const": false },
+        "private_source_metadata_included": { "const": false },
+        "credentials_included": { "const": false },
+        "portable_edge_list_included": { "const": false },
+        "guessed_relationship_strength_included": { "const": false },
+        "current_display_policy_revalidated": { "const": true }
+      },
+      "additionalProperties": true
+    }
+  }
+}

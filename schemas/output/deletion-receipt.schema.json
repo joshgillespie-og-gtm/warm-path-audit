@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/warm-path-audit/schemas/output/deletion-receipt.schema.json",
+  "title": "Privacy-preserving deletion or withdrawal receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "workspace_id",
+    "receipt_id",
+    "operation",
+    "requested_at",
+    "completed_at",
+    "status",
+    "policy_id",
+    "policy_version",
+    "counts",
+    "recomputation",
+    "personal_values_included",
+    "other_contributor_ids_included",
+    "audit_chain_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "workspace_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "receipt_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "operation": {
+      "enum": [
+        "contributor_withdrawal",
+        "workspace_deletion",
+        "retention_expiry",
+        "export_deletion"
+      ]
+    },
+    "subject_scope_digest": { "$ref": "../common.schema.json#/$defs/sha256" },
+    "requested_at": { "$ref": "../common.schema.json#/$defs/dateTime" },
+    "completed_at": { "$ref": "../common.schema.json#/$defs/dateTime" },
+    "status": {
+      "enum": [
+        "completed",
+        "completed_with_external_actions_required",
+        "failed_rolled_back",
+        "partial_failure"
+      ]
+    },
+    "policy_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "policy_version": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_snapshots",
+        "normalized_claims",
+        "relationship_edges",
+        "derived_results",
+        "exports"
+      ],
+      "properties": {
+        "source_snapshots": { "type": "integer", "minimum": 0 },
+        "normalized_claims": { "type": "integer", "minimum": 0 },
+        "relationship_edges": { "type": "integer", "minimum": 0 },
+        "derived_results": { "type": "integer", "minimum": 0 },
+        "exports": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "recomputation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "status", "impacted_run_count"],
+      "properties": {
+        "required": { "type": "boolean" },
+        "status": { "enum": ["not_required", "completed", "failed"] },
+        "impacted_run_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "external_actions_required": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "delete_operator_backup",
+          "delete_user_copied_export",
+          "revoke_provider_authorization"
+        ]
+      }
+    },
+    "personal_values_included": { "const": false },
+    "other_contributor_ids_included": { "const": false },
+    "audit_chain_hash": { "$ref": "../common.schema.json#/$defs/sha256" }
+  }
+}

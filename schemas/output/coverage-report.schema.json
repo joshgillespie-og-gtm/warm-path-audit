@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/warm-path-audit/schemas/output/coverage-report.schema.json",
+  "title": "Deterministic sanitized coverage report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "workspace_id",
+    "audit_run_id",
+    "engine_version",
+    "config_sha256",
+    "policy_sha256",
+    "input_set_sha256",
+    "results",
+    "suppressed",
+    "review_only",
+    "sort_order",
+    "sanitization"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "workspace_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "audit_run_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "engine_version": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "config_sha256": { "$ref": "../common.schema.json#/$defs/sha256" },
+    "policy_sha256": { "$ref": "../common.schema.json#/$defs/sha256" },
+    "input_set_sha256": { "$ref": "../common.schema.json#/$defs/sha256" },
+    "results": {
+      "type": "array",
+      "items": { "$ref": "coverage-result.schema.json" }
+    },
+    "suppressed": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/nonEligible" }
+    },
+    "review_only": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/nonEligible" }
+    },
+    "sort_order": {
+      "const": [
+        "category",
+        "review_priority_desc",
+        "target_account_id",
+        "destination_person_id",
+        "broker_contributor_id",
+        "result_id"
+      ]
+    },
+    "sanitization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile",
+        "formula_cells_neutralized",
+        "bulk_edge_list_included",
+        "raw_source_rows_included"
+      ],
+      "properties": {
+        "profile": { "const": "safe-export-v1" },
+        "formula_cells_neutralized": { "type": "integer", "minimum": 0 },
+        "bulk_edge_list_included": { "const": false },
+        "raw_source_rows_included": { "const": false }
+      }
+    }
+  },
+  "$defs": {
+    "nonEligible": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidate_id", "category", "reason_codes", "policy"],
+      "properties": {
+        "candidate_id": { "$ref": "../common.schema.json#/$defs/id" },
+        "category": { "$ref": "../common.schema.json#/$defs/category" },
+        "reason_codes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]{2,63}$" }
+        },
+        "policy": { "$ref": "../common.schema.json#/$defs/policyDisposition" }
+      }
+    }
+  }
+}

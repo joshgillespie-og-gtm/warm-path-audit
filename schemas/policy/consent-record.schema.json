@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/warm-path-audit/schemas/policy/consent-record.schema.json",
+  "title": "Contributor consent or authorization record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "workspace_id",
+    "consent_record_id",
+    "contributor_id",
+    "authorization_basis",
+    "purpose_id",
+    "notice_version",
+    "source_classes",
+    "allowed_categories",
+    "broker_disclosure",
+    "sanitized_export_allowed",
+    "granted_at",
+    "expires_at",
+    "status",
+    "retention_policy_id",
+    "grant_method"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "workspace_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "consent_record_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "contributor_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "authorization_basis": {
+      "enum": ["individual_consent", "organizational_policy"]
+    },
+    "purpose_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "notice_version": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "notice_acknowledged": { "type": "boolean" },
+    "source_classes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "connections_csv",
+          "contacts_csv",
+          "crm_metadata",
+          "email_metadata",
+          "calendar_metadata",
+          "human_attestation"
+        ]
+      }
+    },
+    "allowed_categories": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "../common.schema.json#/$defs/category" }
+    },
+    "broker_disclosure": {
+      "enum": [
+        "authorized_reviewers",
+        "redacted_in_exports",
+        "named_sanitized_exports"
+      ]
+    },
+    "sanitized_export_allowed": { "type": "boolean" },
+    "granted_at": { "$ref": "../common.schema.json#/$defs/dateTime" },
+    "expires_at": { "$ref": "../common.schema.json#/$defs/dateTime" },
+    "status": { "enum": ["active", "expired", "withdrawn"] },
+    "withdrawn_at": { "$ref": "../common.schema.json#/$defs/dateTime" },
+    "withdrawal_reason_code": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]{2,63}$"
+    },
+    "retention_policy_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "grant_method": {
+      "enum": ["local_cli_confirmation", "signed_record", "admin_policy_record"]
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "withdrawn" } } },
+      "then": { "required": ["withdrawn_at"] }
+    },
+    {
+      "if": {
+        "properties": {
+          "authorization_basis": { "const": "organizational_policy" }
+        }
+      },
+      "then": { "required": ["notice_acknowledged"] }
+    }
+  ]
+}

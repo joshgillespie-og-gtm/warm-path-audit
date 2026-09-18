@@ -1,0 +1,13 @@
+{
+  "workspaceId": "workspace_demo",
+  "policyId": "policy_demo",
+  "version": "1",
+  "effectiveAt": "2026-09-18T12:00:00.000Z",
+  "purposeId": "purpose_network_coverage_audit",
+  "allowedCategories": ["A", "B", "C", "D"],
+  "directScope": "A_ICP_FIT_INCLUDING_TARGETS_B_TARGET_LIST_ONLY",
+  "brokerScope": "C_D_TARGET_LIST_ONLY",
+  "requireBrokerIndividualConsent": true,
+  "networkMode": "disabled",
+  "externalMutations": false
+}

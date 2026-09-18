@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/warm-path-audit/schemas/policy/engine-policy.schema.json",
+  "title": "Deterministic coverage engine policy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "workspaceId",
+    "policyId",
+    "version",
+    "effectiveAt",
+    "purposeId",
+    "allowedCategories",
+    "directScope",
+    "brokerScope",
+    "requireBrokerIndividualConsent",
+    "networkMode",
+    "externalMutations"
+  ],
+  "properties": {
+    "workspaceId": { "$ref": "../common.schema.json#/$defs/id" },
+    "policyId": { "$ref": "../common.schema.json#/$defs/id" },
+    "version": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "effectiveAt": { "$ref": "../common.schema.json#/$defs/dateTime" },
+    "purposeId": { "$ref": "../common.schema.json#/$defs/id" },
+    "allowedCategories": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "../common.schema.json#/$defs/category" }
+    },
+    "directScope": {
+      "const": "A_ICP_FIT_INCLUDING_TARGETS_B_TARGET_LIST_ONLY"
+    },
+    "brokerScope": { "const": "C_D_TARGET_LIST_ONLY" },
+    "requireBrokerIndividualConsent": { "type": "boolean" },
+    "networkMode": { "const": "disabled" },
+    "externalMutations": { "const": false }
+  }
+}

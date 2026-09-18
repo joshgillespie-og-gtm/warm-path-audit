@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/warm-path-audit/schemas/policy/policy-config.schema.json",
+  "title": "Workspace purpose, retention, disclosure, and safety policy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "workspace_id",
+    "policy_id",
+    "policy_version",
+    "purpose",
+    "effective_at",
+    "retention_days",
+    "employment_freshness_days",
+    "identity_resolution",
+    "exports",
+    "external_mutations",
+    "network_mode",
+    "sensitive_targeting"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "workspace_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "policy_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "policy_version": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "purpose": { "type": "string", "minLength": 20, "maxLength": 500 },
+    "effective_at": { "$ref": "../common.schema.json#/$defs/dateTime" },
+    "retention_days": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "raw_source",
+        "normalized_claims",
+        "derived_results",
+        "audit_receipts",
+        "sanitized_exports"
+      ],
+      "properties": {
+        "raw_source": { "const": 0 },
+        "normalized_claims": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 365
+        },
+        "derived_results": { "type": "integer", "minimum": 1, "maximum": 365 },
+        "audit_receipts": { "type": "integer", "minimum": 1, "maximum": 730 },
+        "sanitized_exports": { "type": "integer", "minimum": 0, "maximum": 30 }
+      }
+    },
+    "employment_freshness_days": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["current_max", "review_max"],
+      "properties": {
+        "current_max": { "const": 365 },
+        "review_max": { "const": 730 }
+      }
+    },
+    "identity_resolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ambiguous_auto_merge",
+        "name_company_auto_merge",
+        "shared_email_auto_merge",
+        "confusable_auto_merge"
+      ],
+      "properties": {
+        "ambiguous_auto_merge": { "const": false },
+        "name_company_auto_merge": { "const": false },
+        "shared_email_auto_merge": { "const": false },
+        "confusable_auto_merge": { "const": false }
+      }
+    },
+    "exports": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formula_neutralization",
+        "bulk_edge_list",
+        "broker_identity_default",
+        "raw_source_fields"
+      ],
+      "properties": {
+        "formula_neutralization": {
+          "const": "prefix_apostrophe_after_leading_unicode_whitespace_or_controls"
+        },
+        "bulk_edge_list": { "const": false },
+        "broker_identity_default": { "const": "redacted" },
+        "raw_source_fields": { "const": false }
+      }
+    },
+    "external_mutations": { "const": false },
+    "network_mode": { "const": "disabled" },
+    "sensitive_targeting": { "const": "prohibited" }
+  }
+}

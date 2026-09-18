@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/warm-path-audit/schemas/policy/audit-config.schema.json",
+  "title": "Deterministic audit run configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "workspace_id",
+    "audit_config_id",
+    "config_version",
+    "policy_id",
+    "policy_version",
+    "icp_rule_set",
+    "persona_rule_set",
+    "target_accounts",
+    "suppressions",
+    "score_weights",
+    "sort_order"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "workspace_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "audit_config_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "config_version": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "policy_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "policy_version": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "icp_rule_set": { "$ref": "#/$defs/ruleSet" },
+    "persona_rule_set": { "$ref": "#/$defs/ruleSet" },
+    "target_accounts": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "target_account_id",
+          "canonical_name",
+          "priority",
+          "aliases"
+        ],
+        "properties": {
+          "target_account_id": { "$ref": "../common.schema.json#/$defs/id" },
+          "canonical_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "canonical_domain": {
+            "type": "string",
+            "pattern": "^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.)+[a-z]{2,63}$"
+          },
+          "crm_account_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "priority": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["value", "kind", "review_status"],
+              "properties": {
+                "value": { "type": "string", "minLength": 1, "maxLength": 200 },
+                "kind": { "enum": ["name", "domain", "crm_id"] },
+                "review_status": { "const": "approved" }
+              }
+            }
+          },
+          "notes": { "type": "string", "maxLength": 1000 }
+        }
+      }
+    },
+    "suppressions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["suppression_id", "kind", "value", "reason_code"],
+        "properties": {
+          "suppression_id": { "$ref": "../common.schema.json#/$defs/id" },
+          "kind": {
+            "enum": [
+              "person_id",
+              "account_id",
+              "domain",
+              "source_snapshot_id",
+              "category",
+              "crm_state"
+            ]
+          },
+          "value": { "type": "string", "minLength": 1, "maxLength": 256 },
+          "reason_code": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]{2,63}$"
+          }
+        }
+      }
+    },
+    "score_weights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "account_fit",
+        "persona_fit",
+        "relationship_confidence",
+        "employment_confidence",
+        "path_confidence",
+        "freshness"
+      ],
+      "properties": {
+        "account_fit": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "persona_fit": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "relationship_confidence": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "employment_confidence": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "path_confidence": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "freshness": { "type": "integer", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "sort_order": {
+      "const": [
+        "category",
+        "review_priority_desc",
+        "target_account_id",
+        "destination_person_id",
+        "broker_contributor_id",
+        "result_id"
+      ]
+    }
+  },
+  "$defs": {
+    "ruleSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rule_set_id", "version", "rules"],
+      "properties": {
+        "rule_set_id": { "$ref": "../common.schema.json#/$defs/id" },
+        "version": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["rule_id", "field", "operator", "value"],
+            "properties": {
+              "rule_id": { "$ref": "../common.schema.json#/$defs/id" },
+              "field": {
+                "enum": [
+                  "industry",
+                  "geography",
+                  "employee_count",
+                  "stage",
+                  "technology",
+                  "title",
+                  "function",
+                  "seniority",
+                  "company_name",
+                  "company_domain"
+                ]
+              },
+              "operator": {
+                "enum": ["equals", "in", "not_in", "contains_token", "range"]
+              },
+              "value": {}
+            }
+          }
+        }
+      }
+    }
+  }
+}

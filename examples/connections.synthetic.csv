@@ -1,0 +1,6 @@
+First Name,Last Name,URL,Email Address,Company,Position,Connected On
+Alex,Example,https://profiles.example.com/alex,alex@example.com,Lantern Example Labs,VP Revenue,2026-06-01
+Blair,Sample,https://profiles.example.com/blair,blair@northstar.example.com,Northstar Example Systems,Solutions Architect,2026-05-10
+Cameron,Fixture,https://profiles.example.com/cameron,cameron@northstar.example.com,Northstar Example Systems,Chief Revenue Officer,2026-04-03
+Devon,Demo,https://profiles.example.com/devon,team@northstar.example.com,Northstar Example Systems,Program Manager,2026-03-02
+Formula,Test,https://profiles.example.com/formula,formula@example.com," =HYPERLINK(""https://example.com"",""do not execute"")",Analyst,2026-01-01

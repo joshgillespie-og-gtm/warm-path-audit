@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/warm-path-audit/schemas/import/import-mapping.schema.json",
+  "title": "CSV import mapping",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "mapping_id",
+    "mapping_version",
+    "source_kind",
+    "encoding",
+    "delimiter",
+    "header",
+    "columns",
+    "limits",
+    "network_behavior"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "mapping_id": {
+      "$ref": "../common.schema.json#/$defs/id"
+    },
+    "mapping_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "source_kind": {
+      "enum": [
+        "linkedin_connections_export",
+        "generic_contacts_csv",
+        "crm_csv",
+        "email_metadata_csv",
+        "calendar_metadata_csv"
+      ]
+    },
+    "encoding": {
+      "const": "utf-8"
+    },
+    "delimiter": {
+      "enum": [",", ";", "\t", "|"]
+    },
+    "header": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "max_preamble_lines",
+        "collision_normalization",
+        "reject_duplicates"
+      ],
+      "properties": {
+        "mode": {
+          "enum": ["first_record", "detect_required_headers"]
+        },
+        "required_source_headers": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        },
+        "max_preamble_lines": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "collision_normalization": {
+          "const": "unicode_nfkc_trim_casefold"
+        },
+        "reject_duplicates": {
+          "const": true
+        }
+      }
+    },
+    "columns": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 256,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_header", "target_field", "required", "transforms"],
+        "properties": {
+          "source_header": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "target_field": {
+            "enum": [
+              "first_name",
+              "last_name",
+              "full_name",
+              "email",
+              "profile_url",
+              "company_name",
+              "company_domain",
+              "title",
+              "connected_on",
+              "source_observed_at",
+              "provider_person_id",
+              "provider_organization_id",
+              "crm_contact_id",
+              "crm_account_id"
+            ]
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "transforms": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "trim",
+                "unicode_nfkc",
+                "casefold",
+                "email_normalize",
+                "url_syntax_validate",
+                "domain_normalize",
+                "iso_date_parse",
+                "control_character_reject"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_file_bytes",
+        "max_data_rows",
+        "max_row_bytes",
+        "max_field_bytes",
+        "max_columns"
+      ],
+      "properties": {
+        "max_file_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 104857600
+        },
+        "max_data_rows": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "max_row_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1048576
+        },
+        "max_field_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 262144
+        },
+        "max_columns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256
+        }
+      }
+    },
+    "network_behavior": {
+      "const": "never_fetch"
+    },
+    "unknown_columns": {
+      "enum": ["ignore", "reject"],
+      "default": "ignore"
+    }
+  }
+}

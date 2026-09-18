@@ -1,0 +1,301 @@
+{
+  "schema_version": "0.2.0",
+  "generated_at": "2026-09-18T12:00:00.000Z",
+  "workspace_id": "workspace_demo",
+  "audit_run_id": "audit_run_5357dc8b84bf9d34cb9df2f1e3b945a8",
+  "engine_version": "0.1.0-deterministic",
+  "hashes": {
+    "input_set_sha256": "fab795cfdebe271f3822102dd870ebfb8d95ec1611def674136ab709b8931aeb",
+    "config_sha256": "f486bd5388e8249b68d8774d56e083cb9ba001c6b61f5f1c9acd07b1674bd314",
+    "policy_sha256": "4ff4e1d80601e2c82a7bb22352a3eb89f17ffe9050e2fe7d2c9393552fc6dbb0"
+  },
+  "view": "safe",
+  "caveat": "Results are hypotheses for human review, not permission to contact.",
+  "category_definitions": {
+    "A": "Direct deterministic ICP and stakeholder match",
+    "B": "Direct named-target review-pending coach/champion candidate, not proven influence or warmth",
+    "C": "Consented broker path to a deterministic named-target stakeholder",
+    "D": "Consented broker path to a named-target review-pending coach/champion candidate, not proven influence or warmth"
+  },
+  "summary": {
+    "eligible_total": 4,
+    "categories": {
+      "A": 1,
+      "B": 1,
+      "C": 1,
+      "D": 1
+    },
+    "blocked_total": 2,
+    "review_only_total": 0,
+    "display_invalidated_total": 0
+  },
+  "account_coverage": [
+    {
+      "organization_id": "org_lantern",
+      "canonical_name": "Lantern Labs",
+      "categories": ["A"],
+      "finding_count": 1
+    },
+    {
+      "organization_id": "org_northstar",
+      "canonical_name": "Northstar Systems",
+      "categories": ["B", "C", "D"],
+      "finding_count": 3
+    }
+  ],
+  "findings": [
+    {
+      "result_id": "coverage_result_8bf2a02e61982aae41570fb7c1dd93d2",
+      "category": "A",
+      "category_definition": "Direct deterministic ICP and stakeholder match",
+      "candidate_label": "potential direct icp lead",
+      "destination": {
+        "person_id": "person_alex",
+        "display_name": "Alex Example"
+      },
+      "account": {
+        "organization_id": "org_lantern",
+        "canonical_name": "Lantern Labs"
+      },
+      "persona_outcome": "matched",
+      "review_status": "not_required",
+      "review_priority": 100,
+      "score_interpretation": "Review ordering only; not relationship strength, influence, or permission to contact",
+      "component_scores": {
+        "accountFit": 100,
+        "personaFit": 100,
+        "relationshipConfidence": 100,
+        "employmentConfidence": 100,
+        "pathConfidence": 100,
+        "freshness": 100,
+        "reviewPriority": 100
+      },
+      "reason_codes": [
+        "CATEGORY_A_ELIGIBLE",
+        "ICP_RULES_MATCHED",
+        "STAKEHOLDER_PERSONA_MATCHED"
+      ],
+      "consent_status": "active",
+      "suppression_status": "clear",
+      "evidence": {
+        "evidence_count": 4,
+        "claim_types": [
+          "employment",
+          "identity",
+          "organization",
+          "relationship"
+        ],
+        "source_kinds": ["synthetic_connections_csv"],
+        "observed_at": ["2026-09-18T12:00:00.000Z"],
+        "provenance": "locally imported, user-provided source snapshots"
+      },
+      "dependencies": {
+        "consent_dependency_count": 1,
+        "source_snapshot_dependency_count": 1,
+        "evidence_dependency_count": 4,
+        "relationship_dependency_present": false,
+        "identifiers_redacted": true
+      }
+    },
+    {
+      "result_id": "coverage_result_911d7dd04059f565e2bbfe1ac9529dc7",
+      "category": "B",
+      "category_definition": "Direct named-target review-pending coach/champion candidate, not proven influence or warmth",
+      "candidate_label": "review-pending coach/champion candidate",
+      "destination": {
+        "person_id": "person_blair",
+        "display_name": "Blair Example"
+      },
+      "account": {
+        "organization_id": "org_northstar",
+        "canonical_name": "Northstar Systems"
+      },
+      "persona_outcome": "not_matched",
+      "review_status": "pending",
+      "review_priority": 80,
+      "score_interpretation": "Review ordering only; not relationship strength, influence, or permission to contact",
+      "component_scores": {
+        "accountFit": 100,
+        "personaFit": 0,
+        "relationshipConfidence": 100,
+        "employmentConfidence": 100,
+        "pathConfidence": 100,
+        "freshness": 100,
+        "reviewPriority": 80
+      },
+      "reason_codes": [
+        "CATEGORY_B_ELIGIBLE",
+        "COACH_CANDIDATE_RULES_MATCHED_NOT_PROVEN",
+        "COACH_CHAMPION_CANDIDATE_ONLY",
+        "HUMAN_REVIEW_REQUIRED",
+        "TARGET_ACCOUNT_EXACT"
+      ],
+      "consent_status": "active",
+      "suppression_status": "clear",
+      "evidence": {
+        "evidence_count": 4,
+        "claim_types": [
+          "employment",
+          "identity",
+          "organization",
+          "relationship"
+        ],
+        "source_kinds": ["synthetic_connections_csv"],
+        "observed_at": ["2026-09-18T12:00:00.000Z"],
+        "provenance": "locally imported, user-provided source snapshots"
+      },
+      "dependencies": {
+        "consent_dependency_count": 1,
+        "source_snapshot_dependency_count": 1,
+        "evidence_dependency_count": 4,
+        "relationship_dependency_present": false,
+        "identifiers_redacted": true
+      }
+    },
+    {
+      "result_id": "coverage_result_e16e30030b8322317547e3db25046597",
+      "category": "C",
+      "category_definition": "Consented broker path to a deterministic named-target stakeholder",
+      "candidate_label": "broker path to target stakeholder",
+      "destination": {
+        "person_id": "person_casey",
+        "display_name": "Casey Example"
+      },
+      "account": {
+        "organization_id": "org_northstar",
+        "canonical_name": "Northstar Systems"
+      },
+      "persona_outcome": "matched",
+      "review_status": "not_required",
+      "review_priority": 100,
+      "score_interpretation": "Review ordering only; not relationship strength, influence, or permission to contact",
+      "component_scores": {
+        "accountFit": 100,
+        "personaFit": 100,
+        "relationshipConfidence": 100,
+        "employmentConfidence": 100,
+        "pathConfidence": 100,
+        "freshness": 100,
+        "reviewPriority": 100
+      },
+      "reason_codes": [
+        "CATEGORY_C_ELIGIBLE",
+        "STAKEHOLDER_PERSONA_MATCHED",
+        "TARGET_ACCOUNT_EXACT"
+      ],
+      "consent_status": "active",
+      "suppression_status": "clear",
+      "evidence": {
+        "evidence_count": 4,
+        "claim_types": [
+          "employment",
+          "identity",
+          "organization",
+          "relationship"
+        ],
+        "source_kinds": ["synthetic_connections_csv"],
+        "observed_at": ["2026-09-18T12:00:00.000Z"],
+        "provenance": "locally imported, user-provided source snapshots"
+      },
+      "dependencies": {
+        "consent_dependency_count": 1,
+        "source_snapshot_dependency_count": 1,
+        "evidence_dependency_count": 4,
+        "relationship_dependency_present": true,
+        "identifiers_redacted": true
+      },
+      "broker": {
+        "redacted": true,
+        "disclosure": "broker identity and exact edge withheld"
+      }
+    },
+    {
+      "result_id": "coverage_result_6c9eef43583e87da9a80f137cfa25e7b",
+      "category": "D",
+      "category_definition": "Consented broker path to a named-target review-pending coach/champion candidate, not proven influence or warmth",
+      "candidate_label": "review-pending coach/champion candidate",
+      "destination": {
+        "person_id": "person_devon",
+        "display_name": "Devon Example"
+      },
+      "account": {
+        "organization_id": "org_northstar",
+        "canonical_name": "Northstar Systems"
+      },
+      "persona_outcome": "not_matched",
+      "review_status": "pending",
+      "review_priority": 80,
+      "score_interpretation": "Review ordering only; not relationship strength, influence, or permission to contact",
+      "component_scores": {
+        "accountFit": 100,
+        "personaFit": 0,
+        "relationshipConfidence": 100,
+        "employmentConfidence": 100,
+        "pathConfidence": 100,
+        "freshness": 100,
+        "reviewPriority": 80
+      },
+      "reason_codes": [
+        "CATEGORY_D_ELIGIBLE",
+        "COACH_CANDIDATE_RULES_MATCHED_NOT_PROVEN",
+        "COACH_CHAMPION_CANDIDATE_ONLY",
+        "HUMAN_REVIEW_REQUIRED",
+        "TARGET_ACCOUNT_EXACT"
+      ],
+      "consent_status": "active",
+      "suppression_status": "clear",
+      "evidence": {
+        "evidence_count": 4,
+        "claim_types": [
+          "employment",
+          "identity",
+          "organization",
+          "relationship"
+        ],
+        "source_kinds": ["synthetic_connections_csv"],
+        "observed_at": ["2026-09-18T12:00:00.000Z"],
+        "provenance": "locally imported, user-provided source snapshots"
+      },
+      "dependencies": {
+        "consent_dependency_count": 1,
+        "source_snapshot_dependency_count": 1,
+        "evidence_dependency_count": 4,
+        "relationship_dependency_present": true,
+        "identifiers_redacted": true
+      },
+      "broker": {
+        "redacted": true,
+        "disclosure": "broker identity and exact edge withheld"
+      }
+    }
+  ],
+  "blocked": [
+    {
+      "candidate_id": "candidate_9cb8d60fc5272ae2dc06bfb48b5f8378",
+      "category": "C",
+      "destination_person_id": "person_conflicted",
+      "reason_codes": ["IDENTITY_UNRESOLVED_OR_CONFLICTED"],
+      "disposition": "blocked"
+    },
+    {
+      "candidate_id": "candidate_081e40352bae317f876611ede668166e",
+      "category": "C",
+      "destination_person_id": "person_stale",
+      "reason_codes": ["EMPLOYMENT_STALE", "RELATIONSHIP_STALE"],
+      "disposition": "blocked"
+    }
+  ],
+  "review_only": [],
+  "sanitization": {
+    "profile": "safe-export-v1",
+    "broker_identities_redacted": true,
+    "exact_relationship_edges_redacted": true,
+    "contributor_emails_included": false,
+    "raw_rows_included": false,
+    "private_source_metadata_included": false,
+    "credentials_included": false,
+    "portable_edge_list_included": false,
+    "guessed_relationship_strength_included": false,
+    "current_display_policy_revalidated": true
+  }
+}

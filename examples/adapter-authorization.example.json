@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1.0",
+  "workspace_id": "workspace_ember",
+  "adapter_authorization_id": "authorization_crm_fictional",
+  "adapter_id": "adapter_crm_mock",
+  "provider": "Fictional CRM Mock",
+  "provider_tenant_id": "tenant_example_001",
+  "authorization_basis": "authorized_file_export",
+  "purpose_id": "purpose_b2b_coverage",
+  "capabilities": ["read_crm_metadata"],
+  "field_allowlist": [
+    "crm_account_id",
+    "crm_contact_id",
+    "crm_owner_id",
+    "crm_opportunity_state",
+    "crm_suppression_state"
+  ],
+  "time_window": {
+    "from": "2025-09-18T00:00:00Z",
+    "to": "2026-09-18T00:00:00Z"
+  },
+  "retention_days": 365,
+  "authorized_at": "2026-09-18T00:00:00Z",
+  "expires_at": "2027-09-18T00:00:00Z",
+  "status": "active",
+  "credentials_embedded": false
+}

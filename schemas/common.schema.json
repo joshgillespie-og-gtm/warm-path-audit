@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/warm-path-audit/schemas/common.schema.json",
+  "title": "Warm Path Audit common definitions",
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9_:-]{2,127}$" },
+    "dateTime": { "type": "string", "format": "date-time" },
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "score": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "category": { "enum": ["A", "B", "C", "D"] },
+    "freshnessStatus": {
+      "enum": ["current", "review_required", "stale", "unknown", "conflicting"]
+    },
+    "evidenceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_snapshot_id",
+        "source_record_id",
+        "claim_type",
+        "provenance",
+        "observed_at",
+        "confidence",
+        "freshness_status"
+      ],
+      "properties": {
+        "source_snapshot_id": { "$ref": "#/$defs/id" },
+        "source_record_id": { "$ref": "#/$defs/id" },
+        "claim_type": {
+          "enum": [
+            "identity",
+            "employment",
+            "relationship",
+            "organization",
+            "interaction",
+            "crm_state",
+            "human_attestation"
+          ]
+        },
+        "provenance": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "observed_at": { "$ref": "#/$defs/dateTime" },
+        "retrieved_at": { "$ref": "#/$defs/dateTime" },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "freshness_status": { "$ref": "#/$defs/freshnessStatus" },
+        "row_digest_sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "ruleEvaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_set_id",
+        "rule_set_version",
+        "matched_rule_ids",
+        "failed_rule_ids"
+      ],
+      "properties": {
+        "rule_set_id": { "$ref": "#/$defs/id" },
+        "rule_set_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "matched_rule_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "failed_rule_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        }
+      }
+    },
+    "policyDisposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eligible",
+        "consent_status",
+        "suppression_status",
+        "disclosure"
+      ],
+      "properties": {
+        "eligible": { "type": "boolean" },
+        "consent_status": {
+          "enum": [
+            "active",
+            "expired",
+            "withdrawn",
+            "not_applicable",
+            "invalid"
+          ]
+        },
+        "suppression_status": {
+          "enum": ["clear", "suppressed", "review_required"]
+        },
+        "disclosure": {
+          "enum": [
+            "workspace_private",
+            "authorized_reviewers",
+            "broker_redacted_export",
+            "export_allowed"
+          ]
+        },
+        "reason_codes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]{2,63}$" }
+        }
+      }
+    },
+    "componentScores": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "account_fit",
+        "persona_fit",
+        "relationship_confidence",
+        "employment_confidence",
+        "path_confidence",
+        "freshness",
+        "review_priority"
+      ],
+      "properties": {
+        "account_fit": { "$ref": "#/$defs/score" },
+        "persona_fit": { "$ref": "#/$defs/score" },
+        "relationship_confidence": { "$ref": "#/$defs/score" },
+        "employment_confidence": { "$ref": "#/$defs/score" },
+        "path_confidence": { "$ref": "#/$defs/score" },
+        "freshness": { "$ref": "#/$defs/score" },
+        "review_priority": { "$ref": "#/$defs/score" }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "history"],
+      "properties": {
+        "status": {
+          "enum": [
+            "unreviewed",
+            "review_required",
+            "approved",
+            "rejected",
+            "suppressed"
+          ]
+        },
+        "history": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "decision_id",
+              "actor_id",
+              "decision",
+              "reason_code",
+              "decided_at"
+            ],
+            "properties": {
+              "decision_id": { "$ref": "#/$defs/id" },
+              "actor_id": { "$ref": "#/$defs/id" },
+              "decision": {
+                "enum": ["approve", "reject", "suppress", "reopen"]
+              },
+              "reason_code": {
+                "type": "string",
+                "pattern": "^[A-Z][A-Z0-9_]{2,63}$"
+              },
+              "decided_at": { "$ref": "#/$defs/dateTime" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

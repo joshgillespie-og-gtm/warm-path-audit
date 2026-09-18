@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/warm-path-audit/schemas/adapter/adapter-record.schema.json",
+  "title": "Bounded normalized adapter record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "workspace_id",
+    "adapter_authorization_id",
+    "provider_tenant_id",
+    "provider_record_id",
+    "observed_at",
+    "person_name",
+    "kind"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "workspace_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "adapter_authorization_id": { "$ref": "../common.schema.json#/$defs/id" },
+    "provider_tenant_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "provider_record_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "observed_at": { "$ref": "../common.schema.json#/$defs/dateTime" },
+    "person_name": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "person_email": { "type": "string", "format": "email", "maxLength": 320 },
+    "person_provider_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "organization_name": { "type": "string", "minLength": 1, "maxLength": 300 },
+    "organization_domain": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 253
+    },
+    "kind": { "enum": ["crm", "email", "calendar"] },
+    "crm_account_id": { "type": "string", "minLength": 1, "maxLength": 500 },
+    "crm_contact_id": { "type": "string", "minLength": 1, "maxLength": 500 },
+    "crm_owner_id": { "type": "string", "minLength": 1, "maxLength": 500 },
+    "opportunity_stage": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "suppression_state": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "participant_addresses": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": { "type": "string", "format": "email", "maxLength": 320 }
+    },
+    "event_timestamp": { "$ref": "../common.schema.json#/$defs/dateTime" },
+    "thread_id": { "type": "string", "maxLength": 500 },
+    "direction": { "enum": ["inbound", "outbound", "mixed", "unknown"] },
+    "interaction_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000000
+    },
+    "organizer_address": {
+      "type": "string",
+      "format": "email",
+      "maxLength": 320
+    },
+    "start_at": { "$ref": "../common.schema.json#/$defs/dateTime" },
+    "end_at": { "$ref": "../common.schema.json#/$defs/dateTime" },
+    "rsvp": { "enum": ["accepted", "declined", "tentative", "unknown"] },
+    "attendance": { "enum": ["attended", "absent", "unknown"] }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "kind": { "const": "email" } } },
+      "then": { "required": ["participant_addresses", "event_timestamp"] }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "calendar" } } },
+      "then": { "required": ["participant_addresses", "start_at", "end_at"] }
+    }
+  ]
+}

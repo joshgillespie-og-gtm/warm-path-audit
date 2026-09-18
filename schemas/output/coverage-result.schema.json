@@ -1,0 +1,322 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/warm-path-audit/schemas/output/coverage-result.schema.json",
+  "title": "Warm Path Audit A-D coverage result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "workspace_id",
+    "audit_run_id",
+    "result_id",
+    "category",
+    "destination_person_id",
+    "canonical_account_id",
+    "persona_outcome",
+    "scores",
+    "reason_codes",
+    "evidence",
+    "identity_resolution",
+    "policy",
+    "rule_evaluations",
+    "review",
+    "engine_version",
+    "input_set_sha256",
+    "dependencies"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "workspace_id": {
+      "$ref": "../common.schema.json#/$defs/id"
+    },
+    "audit_run_id": {
+      "$ref": "../common.schema.json#/$defs/id"
+    },
+    "result_id": {
+      "$ref": "../common.schema.json#/$defs/id"
+    },
+    "category": {
+      "$ref": "../common.schema.json#/$defs/category"
+    },
+    "destination_person_id": {
+      "$ref": "../common.schema.json#/$defs/id"
+    },
+    "canonical_account_id": {
+      "$ref": "../common.schema.json#/$defs/id"
+    },
+    "broker_contributor_id": {
+      "$ref": "../common.schema.json#/$defs/id"
+    },
+    "relationship_edge_id": {
+      "$ref": "../common.schema.json#/$defs/id"
+    },
+    "persona_outcome": {
+      "enum": ["matched", "not_matched", "uncertain"]
+    },
+    "candidate_label": {
+      "enum": [
+        "potential_direct_icp_lead",
+        "target_account_coach_champion_candidate",
+        "broker_path_to_target_stakeholder",
+        "broker_path_to_target_account_coach_champion_candidate"
+      ]
+    },
+    "scores": {
+      "$ref": "../common.schema.json#/$defs/componentScores"
+    },
+    "reason_codes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9_]{2,63}$"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "$ref": "../common.schema.json#/$defs/evidenceRef"
+      }
+    },
+    "identity_resolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["confidence", "status", "unresolved_conflict_ids"],
+      "properties": {
+        "confidence": {
+          "$ref": "../common.schema.json#/$defs/confidence"
+        },
+        "status": {
+          "enum": ["resolved_exact", "human_resolved", "review_required"]
+        },
+        "unresolved_conflict_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "../common.schema.json#/$defs/id"
+          }
+        }
+      }
+    },
+    "policy": {
+      "$ref": "../common.schema.json#/$defs/policyDisposition"
+    },
+    "rule_evaluations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "../common.schema.json#/$defs/ruleEvaluation"
+      }
+    },
+    "review": {
+      "$ref": "../common.schema.json#/$defs/review"
+    },
+    "engine_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "input_set_sha256": {
+      "$ref": "../common.schema.json#/$defs/sha256"
+    },
+    "sanitization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile",
+        "formula_cells_neutralized",
+        "broker_identity_redacted",
+        "raw_source_fields_omitted"
+      ],
+      "properties": {
+        "profile": {
+          "const": "safe-export-v1"
+        },
+        "formula_cells_neutralized": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "broker_identity_redacted": {
+          "type": "boolean"
+        },
+        "raw_source_fields_omitted": {
+          "const": true
+        }
+      }
+    },
+    "dependencies": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contributor_ids",
+        "consent_record_ids",
+        "source_snapshot_ids",
+        "evidence_ref_ids",
+        "relationship_edge_ids",
+        "mixed_source_rule"
+      ],
+      "properties": {
+        "contributor_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "../common.schema.json#/$defs/id"
+          }
+        },
+        "consent_record_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "../common.schema.json#/$defs/id"
+          }
+        },
+        "source_snapshot_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "../common.schema.json#/$defs/id"
+          }
+        },
+        "evidence_ref_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "../common.schema.json#/$defs/id"
+          }
+        },
+        "relationship_edge_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "../common.schema.json#/$defs/id"
+          }
+        },
+        "mixed_source_rule": {
+          "const": "invalidate_entire_result"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "category": {
+            "const": "A"
+          }
+        },
+        "required": ["category"]
+      },
+      "then": {
+        "properties": {
+          "persona_outcome": {
+            "const": "matched"
+          },
+          "candidate_label": {
+            "const": "potential_direct_icp_lead"
+          }
+        },
+        "required": ["candidate_label"],
+        "not": {
+          "anyOf": [
+            {
+              "required": ["broker_contributor_id"]
+            },
+            {
+              "required": ["relationship_edge_id"]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "category": {
+            "const": "B"
+          }
+        },
+        "required": ["category"]
+      },
+      "then": {
+        "properties": {
+          "persona_outcome": {
+            "enum": ["not_matched", "uncertain"]
+          },
+          "candidate_label": {
+            "const": "target_account_coach_champion_candidate"
+          }
+        },
+        "required": ["candidate_label"],
+        "not": {
+          "anyOf": [
+            {
+              "required": ["broker_contributor_id"]
+            },
+            {
+              "required": ["relationship_edge_id"]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "category": {
+            "const": "C"
+          }
+        },
+        "required": ["category"]
+      },
+      "then": {
+        "properties": {
+          "persona_outcome": {
+            "const": "matched"
+          },
+          "candidate_label": {
+            "const": "broker_path_to_target_stakeholder"
+          }
+        },
+        "required": [
+          "candidate_label",
+          "broker_contributor_id",
+          "relationship_edge_id"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "category": {
+            "const": "D"
+          }
+        },
+        "required": ["category"]
+      },
+      "then": {
+        "properties": {
+          "persona_outcome": {
+            "enum": ["not_matched", "uncertain"]
+          },
+          "candidate_label": {
+            "const": "broker_path_to_target_account_coach_champion_candidate"
+          }
+        },
+        "required": [
+          "candidate_label",
+          "broker_contributor_id",
+          "relationship_edge_id"
+        ]
+      }
+    }
+  ]
+}
